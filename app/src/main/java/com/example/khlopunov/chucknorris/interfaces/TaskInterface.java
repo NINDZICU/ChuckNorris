@@ -5,7 +5,7 @@ package com.example.khlopunov.chucknorris.interfaces;
  */
 
 public interface TaskInterface {
-    void onTaskFinish(boolean success);
+    void onTaskFinish(String joke);
     void onTaskStarted() ;
     void onTaskProgress();
 }

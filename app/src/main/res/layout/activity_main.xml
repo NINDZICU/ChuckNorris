@@ -21,9 +21,11 @@
         style="?android:attr/progressBarStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:id="@+id/progressBar" />
     <TextView
         android:id="@+id/tv_joke"
+        android:textSize="17dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

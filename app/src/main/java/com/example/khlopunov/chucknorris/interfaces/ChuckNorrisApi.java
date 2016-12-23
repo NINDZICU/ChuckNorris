@@ -1,5 +1,6 @@
 package com.example.khlopunov.chucknorris.interfaces;
 
+import com.example.khlopunov.chucknorris.POJO.Example;
 import com.example.khlopunov.chucknorris.POJO.Value;
 
 import retrofit2.Call;
@@ -11,6 +12,6 @@ import retrofit2.http.Query;
  */
 
 public interface ChuckNorrisApi {
-    @GET("/jokes/random")
-    Call<Value> getJoke();
+    @GET("jokes/random")
+    Call<Example> getJoke();
 }

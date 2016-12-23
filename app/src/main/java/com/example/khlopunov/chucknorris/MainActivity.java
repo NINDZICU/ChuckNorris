@@ -1,6 +1,5 @@
 package com.example.khlopunov.chucknorris;
 
-import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,7 +8,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.khlopunov.chucknorris.AsyncTasks.MyAsync;
 import com.example.khlopunov.chucknorris.fragments.LoaderJokeFragment;
 import com.example.khlopunov.chucknorris.interfaces.TaskInterface;
 
@@ -28,22 +26,15 @@ public class MainActivity extends AppCompatActivity implements TaskInterface{
         btnRefresh = (Button) findViewById(R.id.btn_refresh);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
+        if(getAsyncFragment().isRunning()){
+            progressBar.setVisibility(View.VISIBLE);
+        }
+        else progressBar.setVisibility(View.GONE);
+
         btnRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(savedInstanceState==null) {
                     getAsyncFragment().startAsync();
-                }
-
-
-//                fragment = (LoaderJokeFragment) getSupportFragmentManager().
-//                        findFragmentByTag(LoaderJokeFragment.class.getName());
-//                if (fragment == null) {
-//                    getSupportFragmentManager().beginTransaction().add(
-//                            new LoaderJokeFragment(), LoaderJokeFragment.class.getName()).commit();
-//                    fragment = (LoaderJokeFragment) getSupportFragmentManager().
-//                            findFragmentByTag(LoaderJokeFragment.class.getName());
-//                }
             }
         });
     }
@@ -57,12 +48,16 @@ public class MainActivity extends AppCompatActivity implements TaskInterface{
     }
 
     @Override
-    public void onTaskFinish(boolean success) {
+    public void onTaskFinish(String joke) {
+        getAsyncFragment().stopAsync();
+        progressBar.setVisibility(View.GONE);
+        tvJoke.setText(joke);
         Toast.makeText(this, "Finish", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onTaskStarted() {
+        progressBar.setVisibility(View.VISIBLE);
         Toast.makeText(this, "Start!!", Toast.LENGTH_SHORT).show();
 
     }

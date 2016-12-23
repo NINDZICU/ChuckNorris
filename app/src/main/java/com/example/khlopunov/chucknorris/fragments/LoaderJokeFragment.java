@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 
 import com.example.khlopunov.chucknorris.AsyncTasks.MyAsync;
 import com.example.khlopunov.chucknorris.interfaces.TaskInterface;
@@ -16,6 +17,10 @@ import com.example.khlopunov.chucknorris.interfaces.TaskInterface;
 public class LoaderJokeFragment extends Fragment {
     TaskInterface mTaskInterface;
     MyAsync myAsync;
+
+    public boolean isRunning(){
+        return myAsync!=null;
+    }
 
 
     @Override
@@ -54,6 +59,14 @@ public class LoaderJokeFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
+
         mTaskInterface=null;
     }
+    public void stopAsync(){
+        if(myAsync!=null){
+            myAsync.cancel(true);
+            myAsync=null;
+        }
+    }
+
 }
